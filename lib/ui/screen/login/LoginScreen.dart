@@ -1,6 +1,4 @@
-import 'package:crypto_coin_forum/ui/CryptoColors.dart';
 import 'package:crypto_coin_forum/ui/screen/login/LoginCarousel.dart';
-import 'package:crypto_coin_forum/ui/widget/CryptoToolbar.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -23,8 +21,9 @@ class LoginScreen extends StatelessWidget {
           ),
 
 
-          new Expanded(
-              flex: 10,
+          new Flexible (
+//              fit: FlexFit.loose,
+              flex: 5,
               child: new LoginCarousel()),
 
 
