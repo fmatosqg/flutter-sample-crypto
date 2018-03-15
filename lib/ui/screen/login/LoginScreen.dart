@@ -1,4 +1,5 @@
 import 'package:crypto_coin_forum/ui/CryptoColors.dart';
+import 'package:crypto_coin_forum/ui/screen/login/LoginCarousel.dart';
 import 'package:crypto_coin_forum/ui/widget/CryptoToolbar.dart';
 import 'package:flutter/material.dart';
 
@@ -8,27 +9,56 @@ class LoginScreen extends StatelessWidget {
     return new Scaffold(
 
 
-      body: new Column(children: <Widget>[
-        new Container(height: 50.0,),
+      body: new Column(
 
-        new Expanded(
-          child: new Text("Crypto Forum", style: Theme
-              .of(context)
-              .textTheme
-              .title,),
-        ),
+        children: <Widget>[
+          new Container(height: 50.0,),
 
-        new Expanded(
-          child: new Text("butterfly", style: Theme
-              .of(context)
-              .textTheme
-              .caption,),
-        ),
+          new Expanded(
+            child: new Text("Crypto Forum", style: Theme
+                .of(context)
+                .textTheme
+                .title,),
+            flex: 10,
+          ),
 
 
-      ],
-      )
-      ,);
+          new Expanded(
+              flex: 10,
+              child: new LoginCarousel()),
+
+
+          new Expanded(
+              flex: 4,
+              child: new Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: new Align(
+                    alignment: Alignment.bottomCenter,
+                    child: new FittedBox(
+                        child: new Row(
+                          children: <Widget>[
+                            new SizedBox(
+                                width: 20.0,
+                                height: 20.0,
+                                child: new Image(
+                                  image: new AssetImage(
+                                      'assets/images/bitcoin2.png'),)),
+                            new Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: new Text("butterfly", style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .caption,),
+                            ),
+                          ],
+                        )
+                    )
+                ),
+              )
+          ),
+        ],
+      ),
+    );
   }
 
 }
@@ -65,31 +95,3 @@ class aaaaState extends State<aaaa> {
 
 }
 
-
-final ThemeData LoginTheme = new ThemeData(
-
-  scaffoldBackgroundColor: CryptoColors.redCardinal,
-
-  textTheme: new TextTheme(
-    title: new TextStyle(
-      color: Colors.white,
-      fontSize: 30.0,
-      fontFamily: 'Enriqueta',),
-    subhead: new TextStyle(color: Colors.white,
-        fontFamily: 'Jura'),
-
-    body1: new TextStyle(color: Colors.yellow),
-    body2: new TextStyle(color: Colors.purple),
-
-    caption: new TextStyle(color: Colors.white),
-
-    display1: new TextStyle(color: Colors.purple),
-    display2: new TextStyle(color: Colors.purple),
-    display3: new TextStyle(color: Colors.purple),
-    display4: new TextStyle(color: Colors.purple),
-
-    headline: new TextStyle(color: Colors.purple),
-
-
-  ),
-);
