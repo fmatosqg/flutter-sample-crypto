@@ -48,8 +48,17 @@ class LoginCard extends StatefulWidget {
   State<StatefulWidget> createState() => new _LoginCardState();
 
   Widget getChild() {
-    return new Text(text != null ? text : "",
-      style: new TextStyle(fontFamily: AppFonts.Enriqueta),);
+    return new Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        new Text(text != null ? text : "",
+          style: new TextStyle(fontFamily: AppFonts.Enriqueta),),
+        new SizedBox(
+            width: 10.0,
+            height: 10.0,
+            child: new Image.asset(assetPath))
+      ],
+    );
   }
 
 }
