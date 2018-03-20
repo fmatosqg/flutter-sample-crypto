@@ -12,4 +12,6 @@ class CryptoColors {
 
     },
   );
+
+  static const Color anotherRed = const Color(0xffaa5c5c);
 }

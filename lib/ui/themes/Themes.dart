@@ -30,3 +30,8 @@ final ThemeData LoginTheme = new ThemeData(
   ),
 );
 
+
+class AppFonts {
+
+  static const String Enriqueta = "Enriqueta";
+}

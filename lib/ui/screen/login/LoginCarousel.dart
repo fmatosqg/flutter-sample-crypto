@@ -1,3 +1,5 @@
+import 'package:crypto_coin_forum/ui/CryptoColors.dart';
+import 'package:crypto_coin_forum/ui/themes/Themes.dart';
 import 'package:flutter/material.dart';
 
 
@@ -30,31 +32,56 @@ class LoginCarouselState extends State<LoginCarousel> {
   }
 
   Widget buildLoginCard(int position) {
-    return
+    return new LoginCard(
+      text: "Login method 1", assetPath: 'assets/images/bitcoin2.png',);
+  }
+}
 
-      new SizedBox(
-        width: 200.0,
-        child: new Card (
-          color: Colors.white,
-          child: new Align(
-            alignment: Alignment.bottomCenter,
+class LoginCard extends StatefulWidget {
 
-            child: new Column(
-              children: <Widget>[
-                new Text("asdad $position"),
+  final String text;
+  final String assetPath;
 
-                new SizedBox(
-                  width: 20.0,
-                  height: 20.0,
-                  child: new Image(
-                    image: new AssetImage(
-                        'assets/images/bitcoin2.png'),),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+  const LoginCard({Key key, this.text, this.assetPath}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => new _LoginCardState();
+
+  Widget getChild() {
+    return new Text(text != null ? text : "",
+      style: new TextStyle(fontFamily: AppFonts.Enriqueta),);
   }
 
+}
+
+class _LoginCardState extends State<LoginCard> {
+
+  bool _highlight = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+        margin: const EdgeInsets.all(4.0),
+        child: new Material(
+            key: new Key("THAT"),
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.all(new Radius.circular(20.0))),
+            type: MaterialType.card,
+            color: Colors.green,
+            elevation: _highlight ? 5.0 + 10.0 : 5.0,
+
+            child: new RaisedButton(onPressed: () {},
+              color: CryptoColors.anotherRed,
+              onHighlightChanged: _handleHighlightChanged,
+              child: widget.getChild(),
+            )
+        )
+    );
+  }
+
+  void _handleHighlightChanged(bool value) {
+    setState(() {
+      _highlight = value;
+    });
+  }
 }
