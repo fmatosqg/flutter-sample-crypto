@@ -1,3 +1,4 @@
+import 'package:crypto_coin_forum/assetGenerator/gen/AppFonts.dart';
 import 'package:crypto_coin_forum/ui/CryptoColors.dart';
 import 'package:crypto_coin_forum/ui/themes/Themes.dart';
 import 'package:flutter/material.dart';
