@@ -16,6 +16,8 @@ dependencies:
   pubspec: "^0.0.15"
   dart_style: '1.0.9+1'
 
+  video_player: "^0.3.0"
+
 dependency_overrides:
 #  built_value: '5.1.0'
 

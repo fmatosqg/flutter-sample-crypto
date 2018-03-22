@@ -68,22 +68,40 @@ class _LoginCardState extends State<LoginCard> {
 
   bool _highlight = false;
 
+  final externalRadius = 20.0;
+  static const double internalPadding = 2.0;
+
   @override
   Widget build(BuildContext context) {
     return new Container(
         margin: const EdgeInsets.all(4.0),
+//padding: const EdgeInsets.all(10.0),
         child: new Material(
             key: new Key("THAT"),
             shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.all(new Radius.circular(20.0))),
+                borderRadius: new BorderRadius.all(
+                    new Radius.circular(externalRadius))),
             type: MaterialType.card,
             color: Colors.green,
             elevation: _highlight ? 5.0 + 10.0 : 5.0,
 
-            child: new RaisedButton(onPressed: () {},
-              color: CryptoColors.anotherRed,
-              onHighlightChanged: _handleHighlightChanged,
-              child: widget.getChild(),
+            child: new Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(internalPadding),
+              child: new Material(
+                color: Colors.white,
+
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.all(
+                        new Radius.circular(externalRadius - internalPadding))
+                ),
+//              padding: new EdgeInsets.all(4.0),
+                child: new RaisedButton(onPressed: () {},
+                  color: CryptoColors.anotherRed,
+                  onHighlightChanged: _handleHighlightChanged,
+                  child: widget.getChild(),
+                ),
+              ),
             )
         )
     );

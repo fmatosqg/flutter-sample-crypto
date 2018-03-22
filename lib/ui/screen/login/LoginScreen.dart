@@ -1,4 +1,5 @@
 import 'package:crypto_coin_forum/ui/screen/login/LoginCarousel.dart';
+import 'package:crypto_coin_forum/ui/screen/login/VideoSample.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -19,10 +20,13 @@ class LoginScreen extends StatelessWidget {
                 .title,),
             flex: 10,
           ),
-
+//          new PlayerLifeCycle(
+//            'http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4',
+//                (context, videoController) =>
+//            new AspectRatioVideo(videoController),
+//          ),
 
           new Flexible (
-//              fit: FlexFit.loose,
               flex: 5,
               child: new LoginCarousel()),
 
