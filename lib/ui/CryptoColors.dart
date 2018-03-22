@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 
 class CryptoColors {
 
-  static const MaterialColor redCardinal = //Colors.red;
+  static const MaterialColor redCardinal =
   const MaterialColor(
-    0xFFB71C1C,
+    0xffa41F35,
     const <int, Color>{
 
-      500: const Color(0xFFB71C1C),
-
+      500: const Color(0xffa41F35),
     },
   );
 
-  static const Color anotherRed = const Color(0xffaa5c5c);
+  static const Color redMandy = const Color(0xffdb545f);
+  static const Color redVenetian = const Color(0xff6e0010);
+
+  static const Color redMatrix = const Color(0xffb75e5e);
 }

@@ -1,3 +1,4 @@
+import 'package:crypto_coin_forum/ui/CryptoColors.dart';
 import 'package:crypto_coin_forum/ui/screen/login/LoginCarousel.dart';
 import 'package:crypto_coin_forum/ui/screen/login/VideoSample.dart';
 import 'package:flutter/material.dart';
@@ -7,18 +8,34 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
 
-
       body: new Column(
 
         children: <Widget>[
-          new Container(height: 50.0,),
+          new Container(height: 100.0,),
 
           new Expanded(
-            child: new Text("Crypto Forum", style: Theme
-                .of(context)
-                .textTheme
-                .title,),
-            flex: 10,
+            child: new Text("Welcome to\nCrypto Forum",
+              textAlign: TextAlign.center,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .title,),
+            flex: 4,
+          ),
+
+          new Expanded(
+            child: new Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: new Text(
+                "Join our forums or transfer currencies with friends",
+                maxLines: 3,
+                textAlign: TextAlign.center,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .subhead,),
+            ),
+            flex: 2,
           ),
 //          new PlayerLifeCycle(
 //            'http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4',

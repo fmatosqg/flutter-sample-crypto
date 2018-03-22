@@ -1,3 +1,4 @@
+import 'package:crypto_coin_forum/assetGenerator/gen/AppFonts.dart';
 import 'package:crypto_coin_forum/ui/CryptoColors.dart';
 import 'package:flutter/material.dart';
 
@@ -9,10 +10,10 @@ final ThemeData LoginTheme = new ThemeData(
   textTheme: new TextTheme(
     title: new TextStyle(
       color: Colors.white,
-      fontSize: 30.0,
-      fontFamily: 'Enriqueta',),
+      fontSize: 40.0,
+      fontFamily: AppFonts.Aclonica,),
     subhead: new TextStyle(color: Colors.white,
-        fontFamily: 'Jura'),
+        fontFamily: AppFonts.Enriqueta),
 
     body1: new TextStyle(color: Colors.yellow),
     body2: new TextStyle(color: Colors.purple),

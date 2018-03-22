@@ -75,6 +75,15 @@ flutter:
       fonts:
         - asset: assets/fonts/Jura/Jura-Regular.ttf
 
+    - family: Aclonica
+      fonts:
+        - asset: assets/fonts/Aclonica/Aclonica-Regular.ttf
+
+
+    - family: Comfortaa
+      fonts:
+        - asset: assets/fonts/Comfortaa/Comfortaa-Regular.ttf
+
   assets:
     - assets/images/bitcoin2.png
 
