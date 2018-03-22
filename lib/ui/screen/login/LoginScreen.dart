@@ -11,19 +11,19 @@ class LoginScreen extends StatelessWidget {
       body: new Column(
 
         children: <Widget>[
-          new Container(height: 100.0,),
-
-          new Expanded(
+          new Expanded(child: new Container()),
+          new Flexible(
             child: new Text("Welcome to\nCrypto Forum",
               textAlign: TextAlign.center,
               style: Theme
                   .of(context)
                   .textTheme
                   .title,),
-            flex: 4,
           ),
 
-          new Expanded(
+          new Expanded(child: new Container()),
+          new Flexible(
+            fit: FlexFit.loose,
             child: new Container(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: new Text(
@@ -35,21 +35,15 @@ class LoginScreen extends StatelessWidget {
                     .textTheme
                     .subhead,),
             ),
-            flex: 2,
           ),
-//          new PlayerLifeCycle(
-//            'http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4',
-//                (context, videoController) =>
-//            new AspectRatioVideo(videoController),
-//          ),
 
-          new Flexible (
-              flex: 5,
-              child: new LoginCarousel()),
+          new Expanded(child: new Container()),
 
+          new LoginCarousel(),
 
-          new Expanded(
-              flex: 4,
+          new Expanded(child: new Container()),
+
+          new Flexible(
               child: new Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: new Align(

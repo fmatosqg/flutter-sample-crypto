@@ -1,6 +1,7 @@
 import 'package:crypto_coin_forum/assetGenerator/gen/AppFonts.dart';
 import 'package:crypto_coin_forum/ui/CryptoColors.dart';
 import 'package:crypto_coin_forum/ui/screen/login/DotsIndicator.dart';
+import 'package:crypto_coin_forum/ui/screen/login/ShinyDecoration.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
@@ -25,57 +26,29 @@ class LoginCarouselState extends State<LoginCarousel> {
   Widget build(BuildContext context) {
     _children = getChildren();
 
-    return new SizedBox(
-      height: 170.0,
+    return new Container(
       child: new Stack (
 
         children: <Widget>[
-          new Column(
-            children: <Widget>[
-              new Expanded(
-                flex: 2,
-                child: new Container(
-                  decoration: new BoxDecoration(
-                    gradient: new LinearGradient(
-                        colors: [
-                          CryptoColors.redCardinal,
-                          CryptoColors.whiteTranslucent
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter),
-                  ),
+          new Container(
+            child: new Column(
+              children: <Widget>[
+                new Container (
+                    height: 145.0,
+                    child: buildPager()),
+                new Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: new DotsIndicator(controller: _controller,
+                    itemCount: childrenCount,),
                 ),
-              ),
-
-              new Expanded(
-                child: new Container(
-                  decoration: new BoxDecoration(
-                    gradient: new LinearGradient(
-                        colors: [
-                          CryptoColors.whiteTranslucent,
-                          CryptoColors.redCardinal
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter),
-                  ),
+                new Text('View messages only ',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .subhead
                 ),
-              ),
-            ],
-          ),
-
-          new Column(
-            children: <Widget>[
-              new Flexible(
-                  child: buildPager()),
-              new DotsIndicator(controller: _controller,
-                itemCount: childrenCount,),
-              new Text('View messages only',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .subhead
-              ),
-            ],
+              ],
+            ),
           ),
 
         ],
@@ -86,7 +59,7 @@ class LoginCarouselState extends State<LoginCarousel> {
   @override
   initState() {
     super.initState();
-    print("Init");
+    print("Initt");
 
     _controller = new PageController(
       viewportFraction: 0.7,
@@ -107,7 +80,7 @@ class LoginCarouselState extends State<LoginCarousel> {
   reassemble() {
     super.reassemble();
     print("Come on");
-    _controller.animateToPage(_lastPosition+1,
+    _controller.animateToPage(_lastPosition + 1,
         duration: new Duration(seconds: 1),
         curve: new ElasticInCurve());
   }
