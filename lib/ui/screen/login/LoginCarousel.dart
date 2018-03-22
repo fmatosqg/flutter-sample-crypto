@@ -14,7 +14,7 @@ class LoginCarouselState extends State<LoginCarousel> {
 
   int _lastPosition = 0;
 
-  List<Widget>_children;
+  List<LoginCard>_children;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,9 @@ class LoginCarouselState extends State<LoginCarousel> {
       height: 150.0,
       child: new PageView(children: _children,
         onPageChanged: (position) {
+          _children[position].animateForward();
+          _children[_lastPosition].animateBackwards();
           _lastPosition = position;
-          _children[position];
         },
         controller: new PageController(
           viewportFraction: 0.7,
@@ -54,10 +55,16 @@ class LoginCard extends StatefulWidget {
   final String text;
   final String assetPath;
 
-  const LoginCard({Key key, this.text, this.assetPath}) : super(key: key);
+  _LoginCardState _loginCardState;
+
+  LoginCard({Key key, this.text, this.assetPath}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => new _LoginCardState();
+  State<StatefulWidget> createState() {
+    _loginCardState = new _LoginCardState();
+    return _loginCardState;
+  }
+
 
   Widget getChild() {
     return new Column(
@@ -77,9 +84,55 @@ class LoginCard extends StatefulWidget {
     );
   }
 
+  void animateForward() {
+    _loginCardState.animateForward();
+  }
+
+
+  void animateBackwards() {
+    _loginCardState.animateBackwards();
+  }
+
 }
 
-class _LoginCardState extends State<LoginCard> {
+class _LoginCardState extends State<LoginCard>
+    with SingleTickerProviderStateMixin {
+
+  Animation<double> animation;
+  AnimationController animationController;
+
+  static const _animationMaxValue = 30.0;
+  static const _animationMinValue = 0.8;
+
+  @override
+  initState() {
+    super.initState();
+    animationController = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),);
+
+    animation =
+    new Tween(begin: _animationMinValue, end: 1.0)
+        .animate(animationController)
+      ..addListener(() {
+        setState(() {});
+      });
+  }
+
+  @override
+  dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+
+  animateForward() {
+    animationController.forward();
+  }
+
+  animateBackwards() {
+    animationController.reverse();
+  }
 
   bool _highlight = false;
 
@@ -90,37 +143,49 @@ class _LoginCardState extends State<LoginCard> {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      // prevents clipping on shadow
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        margin: const EdgeInsets.only(
-            bottom: maxElevation * 2, left: 4.0, right: 4.0),
-        child: new Material(
-            key: new Key("THAT"),
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.all(
-                    new Radius.circular(externalRadius))),
-            type: MaterialType.card,
-            elevation: _highlight ? maxElevation : 5.0,
+    return new Transform (
 
-            child: new Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(internalPadding),
-              child: new Material(
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.all(
-                        new Radius.circular(externalRadius - internalPadding))
-                ),
-                child: new RaisedButton(
-                  onPressed: () {},
-                  color: CryptoColors.redMatrix,
+      transform: new Matrix4
+          .diagonal3Values(animation.value, animation.value, 1.0)
+        ..setTranslationRaw(10.5, 10.5, 10.5),
+//      fit: BoxFit.contain,
+//      fit: BoxFit.cover,
+//    fit:BoxFit.none,
+//      fit:BoxFit.fill,
 
-                  onHighlightChanged: _handleHighlightChanged,
-                  child: widget.getChild(),
+
+      child: new Container(
+        // prevents clipping on shadow
+          padding: new EdgeInsets.symmetric(horizontal: 20.0),
+          margin: const EdgeInsets.only(
+              bottom: maxElevation * 2, left: 4.0, right: 4.0),
+          child: new Material(
+              key: new Key("THAT"),
+              shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.all(
+                      new Radius.circular(externalRadius))),
+              type: MaterialType.card,
+              elevation: _highlight ? maxElevation : 5.0,
+
+              child: new Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(internalPadding),
+                child: new Material(
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.all(
+                          new Radius.circular(externalRadius - internalPadding))
+                  ),
+                  child: new RaisedButton(
+                    onPressed: () {},
+                    color: CryptoColors.redMatrix,
+
+                    onHighlightChanged: _handleHighlightChanged,
+                    child: widget.getChild(),
+                  ),
                 ),
-              ),
-            )
-        )
+              )
+          )
+      ),
     );
   }
 
