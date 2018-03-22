@@ -83,35 +83,3 @@ class LoginScreen extends StatelessWidget {
 
 }
 
-
-class aaaa extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => new aaaaState();
-
-}
-
-class aaaaState extends State<aaaa> {
-  @override
-  Widget build(BuildContext context) {
-    return new Column(children: <Widget>[
-      new TextField(
-        decoration: getDecoration(),
-      )
-    ],);
-  }
-
-  InputDecoration getDecoration() {
-    return new InputDecoration(
-      errorText: "errrror",
-      hintText: "hint",
-      counterText: "counter",
-      helperText: "helper",
-      prefixText: "prefix",
-      labelText: "label",
-
-    );
-  }
-
-
-}
-

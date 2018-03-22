@@ -1,6 +1,5 @@
 import 'package:crypto_coin_forum/assetGenerator/gen/AppFonts.dart';
 import 'package:crypto_coin_forum/ui/CryptoColors.dart';
-import 'package:crypto_coin_forum/ui/themes/Themes.dart';
 import 'package:flutter/material.dart';
 
 
@@ -148,12 +147,6 @@ class _LoginCardState extends State<LoginCard>
       transform: new Matrix4
           .diagonal3Values(animation.value, animation.value, 1.0)
         ..setTranslationRaw(10.5, 10.5, 10.5),
-//      fit: BoxFit.contain,
-//      fit: BoxFit.cover,
-//    fit:BoxFit.none,
-//      fit:BoxFit.fill,
-
-
       child: new Container(
         // prevents clipping on shadow
           padding: new EdgeInsets.symmetric(horizontal: 20.0),

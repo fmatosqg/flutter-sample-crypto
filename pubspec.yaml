@@ -13,7 +13,7 @@ dependencies:
   # these dependencies generate dart code with accessors to fonts and assets
   build_runner:
   code_builder: "^3.0.3"
-  pubspec: "^0.0.15"
+#  pubspec: "^0.0.15"
   dart_style: '1.0.9+1'
 
   video_player: "^0.3.0"
@@ -22,8 +22,8 @@ dependency_overrides:
 #  built_value: '5.1.0'
 
 dev_dependencies:
-#  flutter_test:
-#    sdk: flutter
+  flutter_test:
+    sdk: flutter
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
