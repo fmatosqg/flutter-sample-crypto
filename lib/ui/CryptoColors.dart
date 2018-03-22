@@ -16,4 +16,8 @@ class CryptoColors {
   static const Color redVenetian = const Color(0xff6e0010);
 
   static const Color redMatrix = const Color(0xffb75e5e);
+
+  static const Color whiteTranslucent = const Color(0xa5ffffff);
+
+  static const Color greyBorder = const Color(0xffaaaaaa);
 }
