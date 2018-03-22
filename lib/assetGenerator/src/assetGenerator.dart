@@ -1,40 +1,52 @@
+import 'dart:async';
+
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 import 'dart:io';
-import 'package:pubspec/pubspec.dart';
+
+import 'package:path/path.dart' as path;
+
+import 'package:yaml/yaml.dart';
+
 
 final _dartfmt = new DartFormatter();
 
 // generate fonts and assets classes from declarations on pubspec.yaml
 // run with  dart lib/assetGenerator/src/assetGenerator.dart
 void main() {
-  parseFonts();
+  _generateCode("AppFonts", _generateFontsClass);
 }
 
-void parseFonts() async {
-  generateCode("AppFonts", generateFontsClass);
-}
 
-void generateCode(String fileName, Function generateFontsClass) async {
-
+void _generateCode(String fileName, Function generateFontsClass) async {
   var partialPath = '/lib/assetGenerator/gen/${fileName}.dart';
   var file = await new File(
       '${Directory.current.path}${partialPath}')
       .create(recursive: true);
 
-  await file.writeAsString(generateFontsClass());
+  await file.writeAsString(await generateFontsClass());
 
   print("File created: $partialPath");
 }
 
 
-String generateFontsClass() {
-  final animal = new Class((b) =>
-  b
-    ..name = 'AppFonts'
-    ..fields.add(addFont("Enriqueta"))
+Future<String> _generateFontsClass() async {
+  var fontFamilies = await _loadFonts();
+
+  final comments = "// Generated file, don't edit. See README.md for instructions\n\n";
+
+  final fontsClass = new Class((b) {
+    b
+      ..name = 'AppFonts';
+
+    for (var fontFamily in fontFamilies) {
+      b.fields.add(addFont(fontFamily));
+    }
+  }
   );
-  return _dartfmt.format('${animal.accept(new DartEmitter())}');
+
+
+  return _dartfmt.format('$comments ${fontsClass.accept(new DartEmitter())}');
 }
 
 Field addFont(String fontName) {
@@ -46,4 +58,31 @@ Field addFont(String fontName) {
       ..assignment = code
       ..modifier = FieldModifier.constant;
   });
+}
+
+
+Future<YamlMap> _parseYaml() async {
+  var file = await
+  new File(path.join(Directory.current.path, 'pubspec.yaml'))
+      .readAsString();
+
+  return loadYaml(file);
+}
+
+Future<List<String>> _loadFonts() async {
+  var y = await _parseYaml();
+
+//  List<String> assets = y['flutter']['assets'];
+
+  var fonts = y['flutter']['fonts'];
+
+  List<String> fontFamilies = new List();
+
+  for (var f in fonts.value) {
+    fontFamilies.add(f['family']);
+  }
+
+  print("Font Families $fontFamilies");
+
+  return fontFamilies;
 }
