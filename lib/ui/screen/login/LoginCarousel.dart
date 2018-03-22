@@ -11,13 +11,24 @@ class LoginCarousel extends StatefulWidget {
 }
 
 class LoginCarouselState extends State<LoginCarousel> {
+
+  int _lastPosition = 0;
+
+  List<Widget>_children;
+
   @override
   Widget build(BuildContext context) {
+    _children = getChildren();
     return new SizedBox(
-      height: 200.0,
-      child: new ListView(
-          scrollDirection: Axis.horizontal,
-          children: getChildren()
+      height: 150.0,
+      child: new PageView(children: _children,
+        onPageChanged: (position) {
+          _lastPosition = position;
+          _children[position];
+        },
+        controller: new PageController(
+          viewportFraction: 0.7,
+        ),
       ),
     );
   }
@@ -81,6 +92,7 @@ class _LoginCardState extends State<LoginCard> {
   Widget build(BuildContext context) {
     return new Container(
       // prevents clipping on shadow
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
         margin: const EdgeInsets.only(
             bottom: maxElevation * 2, left: 4.0, right: 4.0),
         child: new Material(
