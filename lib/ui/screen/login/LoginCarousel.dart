@@ -5,6 +5,8 @@ import 'package:crypto_coin_forum/ui/screen/login/ShinyDecoration.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
+import 'dart:ui' as ui show Image, ImageFilter;
+
 
 class LoginCarousel extends StatefulWidget {
   @override
@@ -26,33 +28,91 @@ class LoginCarouselState extends State<LoginCarousel> {
   Widget build(BuildContext context) {
     _children = getChildren();
 
-    return new Container(
+    return _method3();
+  }
+
+  _method1() {
+    return new Container (
+//      color: Colors.green,
+//      decoration: new ShinyDecoration(),
+      height: 300.0,
+//      fit: FlexFit.loose,
       child: new Stack (
 
+//        fit: StackFit.loose,
         children: <Widget>[
-          new Container(
-            child: new Column(
-              children: <Widget>[
-                new Container (
-                    height: 145.0,
-                    child: buildPager()),
-                new Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: new DotsIndicator(controller: _controller,
-                    itemCount: childrenCount,),
-                ),
-                new Text('View messages only ',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .subhead
-                ),
-              ],
+//          new Container(
+//            height: 100.0,
+//            child: new Image.asset("assets/images/bitcoin2.png"),
+//          ),
+          _buildPagerContainer(),
+          new BackdropFilter(
+            filter: new ui.ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+            child: new Container(
+              color: CryptoColors.redCardinal.withOpacity(0.1),
+//              color: Colors.white.withOpacity(0.9),
             ),
           ),
 
         ],
       ),
+    );
+  }
+
+
+  _method2() {
+    return new Container (
+      height: 300.0,
+      child: new Stack (
+        children: <Widget>[
+          _buildPagerContainer(),
+          new BackdropFilter(
+            filter: new ui.ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+            child: new Container(
+              color: CryptoColors.redCardinal.withOpacity(0.1),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _method3() {
+    var pagerContainer = _buildPagerContainer();
+
+    var a = new UnconstrainedBox(
+//      constraints: new BoxConstraints.tight(new Size(10.0, 10.0))
+//      ,
+      constrainedAxis: Axis.horizontal,
+      child: pagerContainer,);
+
+//    return a;
+
+    var stack = new Stack (
+      children: <Widget>[
+        pagerContainer,
+        new BackdropFilter(
+//            filter: new ui.ImageFilter.matrix(
+//                new Matrix4.diagonal3Values(0.5, 0.5, 1.0).storage),
+          filter: new ui.ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+          child: new Container(
+            color: CryptoColors.redCardinal.withOpacity(0.1),
+          ),
+
+        ),
+
+      ],
+    );
+
+//    return new Container(
+//      height: 300.0,
+//      child: stack,
+//    );
+
+    return pagerContainer;
+    return new UnconstrainedBox (
+      constrainedAxis: Axis.horizontal,
+      child: stack,
     );
   }
 
@@ -71,7 +131,7 @@ class LoginCarouselState extends State<LoginCarousel> {
       setState(() {
         _controller.animateToPage(2,
             duration: new Duration(seconds: 1),
-            curve: new ElasticInCurve());
+            curve: new ElasticOutCurve());
       });
     });
   }
@@ -82,15 +142,16 @@ class LoginCarouselState extends State<LoginCarousel> {
     print("Come on");
     _controller.animateToPage(_lastPosition + 1,
         duration: new Duration(seconds: 1),
-        curve: new ElasticInCurve());
+        curve: new ElasticOutCurve());
+    _children[_lastPosition + 1]?.animateForward();
   }
 
-  Widget buildPager() {
+  Widget _buildPager() {
     return
       new PageView(children: _children,
         onPageChanged: (position) {
-          _children[position].animateForward();
-          _children[_lastPosition].animateBackwards();
+          _children[position]?.animateForward();
+          _children[_lastPosition]?.animateBackwards();
           _lastPosition = position;
         },
         controller: _controller,
@@ -110,6 +171,44 @@ class LoginCarouselState extends State<LoginCarousel> {
   Widget buildLoginCard(int position) {
     return new LoginCard(
       text: "Anonymous", assetPath: 'assets/images/bitcoin2.png',);
+  }
+
+  Widget _buildPagerContainer() {
+    var pager = _buildPager();
+    var stack = new Stack (
+      children: <Widget>[
+        pager,
+        new BackdropFilter(
+//            filter: new ui.ImageFilter.matrix(
+//                new Matrix4.diagonal3Values(0.5, 0.5, 1.0).storage),
+          filter: new ui.ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+          child: new Container(
+            color: CryptoColors.redCardinal.withOpacity(0.1),
+          ),
+
+        ),
+
+      ],
+    );
+
+    return new Column(
+      children: <Widget>[
+        new Container (
+            height: 145.0,
+            child: pager),
+        new Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: new DotsIndicator(controller: _controller,
+            itemCount: childrenCount,),
+        ),
+        new Text('View messages only ',
+            style: Theme
+                .of(context)
+                .textTheme
+                .subhead
+        ),
+      ],
+    );
   }
 }
 
@@ -148,12 +247,12 @@ class LoginCard extends StatefulWidget {
   }
 
   void animateForward() {
-    _loginCardState.animateForward();
+    _loginCardState?.animateForward();
   }
 
 
   void animateBackwards() {
-    _loginCardState.animateBackwards();
+    _loginCardState?.animateBackwards();
   }
 
 }
@@ -220,42 +319,40 @@ class _LoginCardState extends State<LoginCard>
 
   @override
   Widget build(BuildContext context) {
-    return new Transform (
-      transform: new Matrix4
-          .diagonal3Values(_zoom, _zoom, 1.0),
-      child: new Container(
+    return new Container(
+        transform: new Matrix4
+            .diagonal3Values(_zoom, _zoom, 1.0),
         // prevents clipping on shadow
-          padding: new EdgeInsets.symmetric(horizontal: 20.0),
-          margin: const EdgeInsets.only(
-              bottom: maxElevation * 2, left: 4.0, right: 4.0),
-          child: new Material(
-              key: new Key("THAT"),
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.all(
-                      new Radius.circular(externalRadius))),
-              type: MaterialType.card,
-              elevation: _highlight ? maxElevation : 5.0,
+        padding: new EdgeInsets.symmetric(horizontal: 20.0),
+        margin: const EdgeInsets.only(
+            bottom: maxElevation * 2, left: 4.0, right: 4.0),
+        child: new Material(
+            key: new Key("THAT"),
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.all(
+                    new Radius.circular(externalRadius))),
+            type: MaterialType.card,
+            elevation: _highlight ? maxElevation : 5.0,
 
-              child: new Container(
-                color: _borderColor,
-                padding: const EdgeInsets.all(internalPadding),
-                child: new Material(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.all(
-                          new Radius.circular(
-                              externalRadius - internalPadding))
-                  ),
-                  child: new RaisedButton(
-                    onPressed: () {},
-                    color: CryptoColors.redMatrix,
-
-                    onHighlightChanged: _handleHighlightChanged,
-                    child: widget.getChild(),
-                  ),
+            child: new Container(
+              color: _borderColor,
+              padding: const EdgeInsets.all(internalPadding),
+              child: new Material(
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.all(
+                        new Radius.circular(
+                            externalRadius - internalPadding))
                 ),
-              )
-          )
-      ),
+                child: new RaisedButton(
+                  onPressed: () {},
+                  color: CryptoColors.redMatrix,
+
+                  onHighlightChanged: _handleHighlightChanged,
+                  child: new Text("s "),
+                ),
+              ),
+            )
+        )
     );
   }
 

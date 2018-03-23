@@ -86,6 +86,7 @@ flutter:
 
   assets:
     - assets/images/bitcoin2.png
+    - assets/images/backdrop.png
 
 
 #  transformers:
