@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:crypto_coin_forum/assetGenerator/gen/AppFonts.dart';
 import 'package:crypto_coin_forum/ui/CryptoColors.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +80,8 @@ class LoginCard extends StatefulWidget {
         new SizedBox(
             width: 20.0,
             height: 20.0,
-            child: new Image.asset(assetPath))
+            child: new Image.asset(assetPath)
+        )
       ],
     );
   }
@@ -151,12 +154,13 @@ class _LoginCardState extends State<LoginCard>
         padding: const EdgeInsets.all(10.0),
         child: new Material(
             color: CryptoColors.redMatrix,
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(20.0),
-                side: new BorderSide(width: 3.0, color: Colors.white)),
+//            shape: new RoundedRectangleBorder(
+//                borderRadius: new BorderRadius.circular(20.0),
+//                side: new BorderSide(width: 3.0, color: Colors.white)),
+            shape: new _LoginCardShape(),
             elevation: 4.0,
             child: new RaisedButton(onPressed: () {},
-                  color: CryptoColors.redMatrix,
+              color: CryptoColors.redMatrix,
               onHighlightChanged: _handleHighlightChanged,
               child: widget.getChild(),)
         ),
@@ -169,4 +173,61 @@ class _LoginCardState extends State<LoginCard>
       _highlight = value;
     });
   }
+}
+
+class _LoginCardShape extends RoundedRectangleBorder {
+
+  static final _borderWidth = 10.0;
+
+  @override
+  Path getOuterPath(Rect rect, { TextDirection textDirection }) {
+    Path path = new Path();
+    path
+      ..moveTo(_borderWidth, _borderWidth)
+
+      ..relativeCubicTo(
+        rect.right / 3.0, 12.0,
+        rect.right * 2.0 / 3.0, -10.0,
+        rect.right-_borderWidth*2, 0.0,)
+
+      ..relativeCubicTo(10.0, rect.bottom / 3.0,
+        -10.0, rect.bottom * 1.6 / 3.0,
+        0.0, rect.bottom-_borderWidth*2)
+
+      ..relativeCubicTo(
+      -rect.right / 3.0, -10.0,
+      -rect.right * 2.0 / 3.0, 15.0,
+      -rect.right+_borderWidth*2, 0.0,)
+
+      ..relativeCubicTo(10.0, -rect.bottom / 3.0,
+        -10.0, -rect.bottom * 1.6 / 3.0,
+        0.0, -rect.bottom+_borderWidth*2)
+
+    ;
+
+    return path;
+  }
+
+  @override
+  void paint(Canvas canvas, Rect rect, { TextDirection textDirection }) {
+    final RRect outer = borderRadius.resolve(textDirection).toRRect(rect);
+    final RRect inner = outer.deflate(rect.right);
+    final Paint paint = new Paint()
+      ..color = side.color;
+    final outerPath = getOuterPath(rect);
+    final transformMatrix = new Matrix4
+        .diagonal3Values(0.6, 0.6, 1.0)
+      ..translate(rect.right * 0.6 / 2.0, rect.bottom * 0.6 / 2.0, 0.0);
+    final innerPath = outerPath.transform(transformMatrix.storage);
+
+    paint.style = PaintingStyle.stroke;
+    paint.strokeWidth = _borderWidth;
+//    canvas.clipPath(innerPath);
+//    canvas.
+    canvas.drawPath(outerPath, paint);
+  }
+
+  _LoginCardShape()
+      : super(side: new BorderSide(width: _borderWidth, color: Colors.white));
+
 }
