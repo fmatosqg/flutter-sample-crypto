@@ -34,7 +34,7 @@ class LoginCarouselState extends State<LoginCarousel> {
   }
 
   List<Widget> getChildren() {
-    List list = new List();
+    List<LoginCard> list = new List();
 
     for (int i = 0; i < 20; i++) {
       list.add(buildLoginCard(i));
@@ -143,41 +143,23 @@ class _LoginCardState extends State<LoginCard>
   @override
   Widget build(BuildContext context) {
     return new Transform (
-
       transform: new Matrix4
           .diagonal3Values(animation.value, animation.value, 1.0)
         ..setTranslationRaw(10.5, 10.5, 10.5),
       child: new Container(
-        // prevents clipping on shadow
-          padding: new EdgeInsets.symmetric(horizontal: 20.0),
-          margin: const EdgeInsets.only(
-              bottom: maxElevation * 2, left: 4.0, right: 4.0),
-          child: new Material(
-              key: new Key("THAT"),
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.all(
-                      new Radius.circular(externalRadius))),
-              type: MaterialType.card,
-              elevation: _highlight ? maxElevation : 5.0,
-
-              child: new Container(
-                color: Colors.white,
-                padding: const EdgeInsets.all(internalPadding),
-                child: new Material(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.all(
-                          new Radius.circular(externalRadius - internalPadding))
-                  ),
-                  child: new RaisedButton(
-                    onPressed: () {},
-                    color: CryptoColors.redMatrix,
-
-                    onHighlightChanged: _handleHighlightChanged,
-                    child: widget.getChild(),
-                  ),
-                ),
-              )
-          )
+        margin: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
+        child: new Material(
+            color: CryptoColors.redMatrix,
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(20.0),
+                side: new BorderSide(width: 3.0, color: Colors.white)),
+            elevation: 4.0,
+            child: new RaisedButton(onPressed: () {},
+                  color: CryptoColors.redMatrix,
+              onHighlightChanged: _handleHighlightChanged,
+              child: widget.getChild(),)
+        ),
       ),
     );
   }
