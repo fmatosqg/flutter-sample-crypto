@@ -84,10 +84,12 @@ flutter:
       fonts:
         - asset: assets/fonts/Comfortaa/Comfortaa-Regular.ttf
 
-  assets:
-    - assets/images/bitcoin2.png
-    - assets/images/backdrop.png
+#  assets:
+#    - assets/images/bitcoin2.png
+#    - assets/images/bbitcoin2.png
 
+  enable-asset-scan: true
+#  asset-scan-path: assets/
 
 #  transformers:
 #    - my_transformer
