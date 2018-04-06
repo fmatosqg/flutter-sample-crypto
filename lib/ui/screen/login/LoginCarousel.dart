@@ -158,8 +158,8 @@ class LoginCarouselState extends State<LoginCarousel> {
       );
   }
 
-  List<Widget> getChildren() {
-    List list = new List();
+  List<LoginCard> getChildren() {
+    List<LoginCard> list = new List();
 
     for (int i = 0; i < childrenCount; i++) {
       list.add(buildLoginCard(i));
