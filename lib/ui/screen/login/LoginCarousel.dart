@@ -139,7 +139,6 @@ class LoginCard extends StatefulWidget {
     return _loginCardState;
   }
 
-
   Widget getChild() {
     return new Column(
       mainAxisSize: MainAxisSize.min,
@@ -178,8 +177,6 @@ class _LoginCardState extends State<LoginCard>
 
   static const _animationMinValue = 0.8;
 
-  Color _borderColor = Colors.white;
-
   @override
   initState() {
     super.initState();
@@ -193,8 +190,6 @@ class _LoginCardState extends State<LoginCard>
       ..addListener(() {
         setState(() {});
       });
-
-    _borderColor = CryptoColors.greyBorder;
   }
 
   @override
@@ -206,19 +201,13 @@ class _LoginCardState extends State<LoginCard>
 
   animateForward() {
     animationController.forward();
-    setState(() {
-      _borderColor = Colors.white;
-    });
+    setState(() {});
   }
 
   animateBackwards() {
     animationController.reverse();
-    setState(() {
-      _borderColor = CryptoColors.greyBorder;
-    });
+    setState(() {});
   }
-
-  bool _highlight = false;
 
   final externalRadius = 10.0;
   static const double internalPadding = 3.0;
@@ -236,10 +225,9 @@ class _LoginCardState extends State<LoginCard>
         padding: const EdgeInsets.all(10.0),
         child: new Material(
             color: CryptoColors.redMatrix,
-//            shape: new RoundedRectangleBorder(
-//                borderRadius: new BorderRadius.circular(20.0),
-//                side: new BorderSide(width: 3.0, color: Colors.white)),
-            shape: new _LoginCardShape(),
+            shape: new _LoginCardShape(
+              side: const BorderSide(color: Colors.white),
+            ),
             elevation: 4.0,
             child: new RaisedButton(onPressed: () {},
               color: CryptoColors.redMatrix,
@@ -252,7 +240,7 @@ class _LoginCardState extends State<LoginCard>
 
   void _handleHighlightChanged(bool value) {
     setState(() {
-      _highlight = value;
+
     });
   }
 }
@@ -260,6 +248,11 @@ class _LoginCardState extends State<LoginCard>
 class _LoginCardShape extends RoundedRectangleBorder {
 
   static final _borderWidth = 10.0;
+
+  _LoginCardShape(
+      {BorderSide side: const BorderSide(width: 10.0, color: Colors.white) })
+      : super(side: side);
+
 
   @override
   Path getOuterPath(Rect rect, { TextDirection textDirection }) {
@@ -288,24 +281,15 @@ class _LoginCardShape extends RoundedRectangleBorder {
 
   @override
   void paint(Canvas canvas, Rect rect, { TextDirection textDirection }) {
-    final RRect outer = borderRadius.resolve(textDirection).toRRect(rect);
-    final RRect inner = outer.deflate(rect.right);
+
     final Paint paint = new Paint()
       ..color = side.color;
     final outerPath = getOuterPath(rect);
-    final transformMatrix = new Matrix4
-        .diagonal3Values(0.6, 0.6, 1.0)
-      ..translate(rect.right * 0.6 / 2.0, rect.bottom * 0.6 / 2.0, 0.0);
-    final innerPath = outerPath.transform(transformMatrix.storage);
 
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = _borderWidth;
-//    canvas.clipPath(innerPath);
-//    canvas.
     canvas.drawPath(outerPath, paint);
   }
 
-  _LoginCardShape()
-      : super(side: new BorderSide(width: _borderWidth, color: Colors.white));
 
 }
