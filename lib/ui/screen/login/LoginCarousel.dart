@@ -27,92 +27,7 @@ class LoginCarouselState extends State<LoginCarousel> {
   Widget build(BuildContext context) {
     _children = getChildren();
 
-    return _method3();
-  }
-
-  _method1() {
-    return new Container (
-//      color: Colors.green,
-//      decoration: new ShinyDecoration(),
-      height: 300.0,
-//      fit: FlexFit.loose,
-      child: new Stack (
-
-//        fit: StackFit.loose,
-        children: <Widget>[
-//          new Container(
-//            height: 100.0,
-//            child: new Image.asset("assets/images/bitcoin2.png"),
-//          ),
-          _buildPagerContainer(),
-          new BackdropFilter(
-            filter: new ui.ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-            child: new Container(
-              color: CryptoColors.redCardinal.withOpacity(0.1),
-//              color: Colors.white.withOpacity(0.9),
-            ),
-          ),
-
-        ],
-      ),
-    );
-  }
-
-
-  _method2() {
-    return new Container (
-      height: 300.0,
-      child: new Stack (
-        children: <Widget>[
-          _buildPagerContainer(),
-          new BackdropFilter(
-            filter: new ui.ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-            child: new Container(
-              color: CryptoColors.redCardinal.withOpacity(0.1),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  _method3() {
-    var pagerContainer = _buildPagerContainer();
-
-    var a = new UnconstrainedBox(
-//      constraints: new BoxConstraints.tight(new Size(10.0, 10.0))
-//      ,
-      constrainedAxis: Axis.horizontal,
-      child: pagerContainer,);
-
-//    return a;
-
-    var stack = new Stack (
-      children: <Widget>[
-        pagerContainer,
-        new BackdropFilter(
-//            filter: new ui.ImageFilter.matrix(
-//                new Matrix4.diagonal3Values(0.5, 0.5, 1.0).storage),
-          filter: new ui.ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-          child: new Container(
-            color: CryptoColors.redCardinal.withOpacity(0.1),
-          ),
-
-        ),
-
-      ],
-    );
-
-//    return new Container(
-//      height: 300.0,
-//      child: stack,
-//    );
-
-    return pagerContainer;
-    return new UnconstrainedBox (
-      constrainedAxis: Axis.horizontal,
-      child: stack,
-    );
+    return _buildPagerContainer();
   }
 
   @override
@@ -178,8 +93,6 @@ class LoginCarouselState extends State<LoginCarousel> {
       children: <Widget>[
         pager,
         new BackdropFilter(
-//            filter: new ui.ImageFilter.matrix(
-//                new Matrix4.diagonal3Values(0.5, 0.5, 1.0).storage),
           filter: new ui.ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
           child: new Container(
             color: CryptoColors.redCardinal.withOpacity(0.1),
@@ -263,11 +176,9 @@ class _LoginCardState extends State<LoginCard>
   Animation<double> animation;
   AnimationController animationController;
 
-  static const _animationMaxValue = 30.0;
   static const _animationMinValue = 0.8;
 
   Color _borderColor = Colors.white;
-  double _zoom = 1.0;
 
   @override
   initState() {
@@ -280,12 +191,9 @@ class _LoginCardState extends State<LoginCard>
     new Tween(begin: _animationMinValue, end: 1.0)
         .animate(animationController)
       ..addListener(() {
-        setState(() {
-          _zoom = animation.value;
-        });
+        setState(() {});
       });
 
-    _zoom = _animationMinValue;
     _borderColor = CryptoColors.greyBorder;
   }
 
