@@ -3,6 +3,8 @@ import 'dart:ui' as ui show Image, ImageFilter;
 
 import 'package:crypto_coin_forum/assetGenerator/gen/AppFonts.dart';
 import 'package:crypto_coin_forum/ui/CryptoColors.dart';
+import 'package:crypto_coin_forum/ui/navigation/Navigation.dart';
+import 'package:crypto_coin_forum/ui/screen/chat/ChatScreen.dart';
 import 'package:crypto_coin_forum/ui/screen/login/DotsIndicator.dart';
 import 'package:crypto_coin_forum/ui/screen/login/LoginCardShape.dart';
 import 'package:flutter/material.dart';
@@ -210,17 +212,20 @@ class _LoginCardState extends State<LoginCard>
         margin: const EdgeInsets.all(10.0),
         padding: const EdgeInsets.all(10.0),
         child: new Material(
+          color: CryptoColors.redMatrix,
+          shape: new LoginCardShape(
+            side: new BorderSide(color: Colors.white),
+          ),
+          elevation: 4.0,
+          child: new RaisedButton(
+            onPressed: () {
+              Navigation.singleton.openChat(context);
+            },
             color: CryptoColors.redMatrix,
-            shape: new LoginCardShape(
-              side: const BorderSide(color: Colors.white),
-            ),
-            elevation: 4.0,
-            child: new RaisedButton(
-              onPressed: () {},
-              color: CryptoColors.redMatrix,
-              onHighlightChanged: _handleHighlightChanged,
-              child: widget.getChild(),
-            )),
+            onHighlightChanged: _handleHighlightChanged,
+            child: widget.getChild(),
+          ),
+        ),
       ),
     );
   }
