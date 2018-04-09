@@ -4,6 +4,8 @@ def flutterProjectRoot = rootProject.projectDir.parentFile.toPath()
 
 def plugins = new Properties()
 def pluginsFile = new File(flutterProjectRoot.toFile(), '.flutter-plugins')
+
+println("Folder for plugins is ${flutterProjectRoot.toFile()}    ")
 if (pluginsFile.exists()) {
     pluginsFile.withReader('UTF-8') { reader -> plugins.load(reader) }
 }

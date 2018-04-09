@@ -1,4 +1,5 @@
 import 'package:crypto_coin_forum/ui/screen/login/LoginScreen.dart';
+import 'package:crypto_coin_forum/ui/screen/login/newtest.dart';
 import 'package:crypto_coin_forum/ui/themes/Themes.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
         theme: LoginTheme,
 //      home: new MyHomePage(title: 'Flutter Demo Home Page'),
         home: new LoginScreen()
-    );
+//    home: new Videooo(),
+        );
   }
 }
 
@@ -87,10 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             new Text(
               '$_counter',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .display1,
+              style: Theme.of(context).textTheme.display1,
             ),
           ],
         ),

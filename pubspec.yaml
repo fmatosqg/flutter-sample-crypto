@@ -2,6 +2,7 @@ name: crypto_coin_forum
 description: A new Flutter project.
 
 dependencies:
+
   flutter:
     sdk: flutter
 
@@ -16,7 +17,10 @@ dependencies:
 #  pubspec: "^0.0.15"
   dart_style: '1.0.9+1'
 
-  video_player: "^0.3.0"
+  video_player: "0.4.0"
+
+#  flutter_webview_plugin: "^0.1.5"
+#  shared_preferences: "^0.4.0"
 
 dependency_overrides:
 #  built_value: '5.1.0'
@@ -84,11 +88,12 @@ flutter:
       fonts:
         - asset: assets/fonts/Comfortaa/Comfortaa-Regular.ttf
 
-#  assets:
-#    - assets/images/bitcoin2.png
+  assets:
+    - assets/images/bitcoin2.png
+#    - assets/images/bitcoin4.png
 #    - assets/images/bbitcoin2.png
 
-  enable-asset-scan: true
+#  enable-asset-scan: true
 #  asset-scan-path: assets/
 
 #  transformers:
