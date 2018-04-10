@@ -24,6 +24,6 @@ final ThemeData LoginTheme = new ThemeData(
 );
 
 final ThemeData ChatTheme = new ThemeData(
-  scaffoldBackgroundColor: Colors.white,
-  iconTheme: new IconThemeData(color: Colors.white),
+  scaffoldBackgroundColor: Colors.black87,
+  iconTheme: new IconThemeData(color: Colors.yellow),
 );

@@ -1,11 +1,13 @@
 import 'package:crypto_coin_forum/ui/navigation/Navigation.dart';
+import 'package:crypto_coin_forum/ui/screen/chat/Sparkles.dart';
+import 'package:crypto_coin_forum/ui/screen/login/LoginCarousel.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
+        appBar: new AppBar(
           leading: new IconButton(
             icon: new Icon(
               Icons.arrow_back,
@@ -23,14 +25,52 @@ class ChatScreen extends StatelessWidget {
               onPressed: () {},
 //              onPressed: _airDress,
             ),
-          ]),
+          ],
+        ),
 //      backgroundColor: Colors.white,
-      body: new Container(
+        body: _buildView());
+  }
+
+  Widget _buildView() {
+    return new SingleChildScrollView(
+      child: new Center(
         child: new Column(
           children: <Widget>[
-            new Text("dsdsds"),
-            new Text("dsdsdsa"),
-            new Icon(Icons.playlist_play),
+            new Text("ss"),
+            new Container(
+              color: Colors.blue,
+              child: new Text("asds"),
+            ),
+            new Container(
+              color: Colors.green,
+              height: 100.0,
+              width: 100.0,
+              child: new Text("dddd"),
+            ),
+            new Container(
+              width: 100.0,
+              height: 100.0,
+              color: Colors.black,
+              child: new Sparkles(),
+            ),
+            new Container(
+              width: 100.0,
+              height: 100.0,
+              color: Colors.blue,
+              child: new Sparkles(),
+            ),
+            new Container(
+              width: 200.0,
+              height: 200.0,
+              color: Colors.red,
+              child: new Sparkles(),
+            ),
+            new Container(
+              height: 200.0,
+              width: 200.0,
+              color: Colors.yellow,
+              child: new LoginCard(text: "hello"),
+            ),
           ],
         ),
       ),

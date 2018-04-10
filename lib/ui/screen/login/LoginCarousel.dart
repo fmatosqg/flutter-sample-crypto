@@ -145,7 +145,9 @@ class LoginCard extends StatefulWidget {
         ),
         new Padding(padding: const EdgeInsets.all(8.0)),
         new SizedBox(
-            width: 20.0, height: 20.0, child: new Image.asset(assetPath))
+            width: 20.0,
+            height: 20.0,
+            child: assetPath == null ? null : new Image.asset(assetPath))
       ],
     );
   }
