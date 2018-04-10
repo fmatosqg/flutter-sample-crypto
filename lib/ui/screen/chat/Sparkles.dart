@@ -20,8 +20,11 @@ class _SparklingBoxx extends StatefulWidget {
   State<StatefulWidget> createState() => new _SparklingBoxState();
 }
 
-class _SparklingBoxState extends State<_SparklingBoxx> {
+class _SparklingBoxState extends State<_SparklingBoxx>
+    with TickerProviderStateMixin {
   List<Dot> listDot;
+
+  AnimationController animationController;
 
   @override
   void initState() {
@@ -29,28 +32,45 @@ class _SparklingBoxState extends State<_SparklingBoxx> {
 
     listDot = [];
     new List.generate(dotCount, (i) {
-      double dx = widget._size.width / dotCount;
+      double dx = widget._size.width / dotCount.ceilToDouble();
 
-      var x = 10.0 * i + dx / 2;
-      var y = 10.0;
+      double x = 010.0 * i.ceilToDouble() + dx / 2.ceilToDouble();
+      double y = 01.0;
       listDot.add(new Dot(x, y));
     });
     super.initState();
+
+    animationController = new AnimationController(
+      vsync: this,
+      duration: new Duration(seconds: 10),
+    )
+      ..addListener(() {
+        for (var node in listDot) {
+          node.move(animationController.value);
+        }
+      })
+      ..repeat(min: 0.0, max: 1.0, period: new Duration(seconds: 3))
+//    ..repeat()
+    ;
   }
 
   @override
   void dispose() {
+    animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      // hh
-//        child: new Text("ddd")
-      child: new CustomPaint(
-        painter: new _SparksPainter(listDot),
-      ),
+    return new AnimatedBuilder(
+        animation: new CurvedAnimation(
+            parent: animationController, curve: Curves.easeInOut),
+        builder: _buildBody);
+  }
+
+  Widget _buildBody(BuildContext context, Widget child) {
+    return new CustomPaint(
+      painter: new _SparksPainter(listDot),
     );
   }
 }
@@ -80,7 +100,14 @@ class Dot {
   double y;
   double x;
 
-  Dot(this.x, this.y);
+  final double initialX, initialY;
+
+  Dot(this.initialX, this.initialY);
+
+  void move(double dt) {
+    y = initialY + Curves.elasticOut.transform(dt) * 100.0;
+    x = initialX;
+  }
 
   void draw(Canvas canvas, Paint paint) {
 //    double size = 3.9;
