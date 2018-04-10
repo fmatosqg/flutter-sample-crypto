@@ -62,8 +62,8 @@ class ChatScreen extends StatelessWidget {
             new Container(
               width: 200.0,
               height: 200.0,
-              color: Colors.red,
-              child: new Sparkles(),
+              color: Colors.blueGrey,
+              child: new SparklingBox(),
             ),
             new Container(
               height: 200.0,
