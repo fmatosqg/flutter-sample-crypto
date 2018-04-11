@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -28,30 +29,31 @@ class _SparklingBoxState extends State<_SparklingBoxx>
 
   @override
   void initState() {
-    var dotCount = 10;
+    var dotCount = 30;
 
+    var random = new Random();
     listDot = [];
     new List.generate(dotCount, (i) {
       double dx = widget._size.width / dotCount.ceilToDouble();
 
-      double x = 010.0 * i.ceilToDouble() + dx / 2.ceilToDouble();
-      double y = 01.0;
-      listDot.add(new Dot(x, y));
+      double x = 010.0; //* i.ceilToDouble() + dx / 2.ceilToDouble();
+      double y = 100.0;
+      listDot.add(new Dot(new Offset(x, y),
+          new Offset(random.nextDouble() - 0.5, random.nextDouble() - 0.5)));
     });
     super.initState();
 
     animationController = new AnimationController(
       vsync: this,
-      duration: new Duration(seconds: 10),
+      duration: new Duration(seconds: 3),
     )
       ..addListener(() {
         for (var node in listDot) {
           node.move(animationController.value);
         }
       })
-      ..repeat(min: 0.0, max: 1.0, period: new Duration(seconds: 3))
-//    ..repeat()
-    ;
+//          ..repeat(min: 0.0, max: 1.0, period: new Duration(seconds: 3))
+      ..repeat();
   }
 
   @override
@@ -97,29 +99,40 @@ class _SparksPainter extends CustomPainter {
 }
 
 class Dot {
-  double y;
-  double x;
+  final Offset _initialPosition;
+  final Offset _initialSpeed;
 
-  final double initialX, initialY;
+  Offset _updatedPosition;
+  double _brightness;
 
-  Dot(this.initialX, this.initialY);
+  Dot(this._initialPosition, this._initialSpeed);
 
   void move(double dt) {
-    y = initialY + Curves.elasticOut.transform(dt) * 100.0;
-    x = initialX;
+    double curveFactor = Curves.decelerate.transform(dt);
+
+    double a = 0.9;
+    double b = 1.0 - a;
+    curveFactor = 1.0 - pow(1.0 - dt, 2 * 10) * a - (1.0 - dt) * b;
+
+    _brightness = 1.0 - curveFactor;
+
+    Offset translation = _initialSpeed * curveFactor * 400.0;
+
+    _updatedPosition = _initialPosition + translation;
   }
 
   void draw(Canvas canvas, Paint paint) {
 //    double size = 3.9;
 
-    var sizeSolid = 2.0;
-    var sizeFuzzy = sizeSolid * 3;
+    var sizeSolid = 4.0 * _brightness;
+
+    var sizeFuzzy = sizeSolid * 3.0;
 
     double sigma = 4.0;
 
     Paint paint = new Paint();
 
-    Offset center = new Offset(x, y);
+    Offset center = new Offset(_updatedPosition.dx, _updatedPosition.dy);
     Offset offFuzzy = new Offset(sizeFuzzy / 2, sizeFuzzy / 2);
     Rect rectFuzzy = new Rect.fromPoints(center - offFuzzy, center + offFuzzy);
 

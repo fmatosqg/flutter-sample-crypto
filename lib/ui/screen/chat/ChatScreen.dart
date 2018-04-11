@@ -36,17 +36,7 @@ class ChatScreen extends StatelessWidget {
       child: new Center(
         child: new Column(
           children: <Widget>[
-            new Text("ss"),
-            new Container(
-              color: Colors.blue,
-              child: new Text("asds"),
-            ),
-            new Container(
-              color: Colors.green,
-              height: 100.0,
-              width: 100.0,
-              child: new Text("dddd"),
-            ),
+            new TransitionThing(),
             new Container(
               width: 100.0,
               height: 100.0,
@@ -75,5 +65,51 @@ class ChatScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class TransitionThing extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => new TransitionThingState();
+}
+
+class TransitionThingState extends State<TransitionThing> {
+  List<Widget> _list;
+  Widget _button;
+
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return new Container(
+      height: 300.0,
+      color: Colors.blueGrey,
+      child: new Column(
+        children: _list,
+      ),
+    );
+  }
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _list = [];
+    _button = new IconButton(
+        icon: new Icon(Icons.transform),
+        onPressed: () {
+          setState(() {
+            _list.add(new Text("More"));
+            print("aaa");
+          });
+        });
+
+    _list.add(_button);
+    _list.add(new Text("T1"));
+
   }
 }
