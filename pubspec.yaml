@@ -15,7 +15,7 @@ dependencies:
   build_runner:
   code_builder: "^3.0.3"
 #  pubspec: "^0.0.15"
-  dart_style: '1.0.9+1'
+  dart_style: '^1.1.0'
 
   video_player: "0.4.0"
 
